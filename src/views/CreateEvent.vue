@@ -67,6 +67,7 @@
     
     <script>
     import {v4 as uuid4 } from 'uuid'
+    import EventService from '@/services/EventService'
 
     export default {
         nama:'EventCreate',
@@ -101,7 +102,15 @@
                 organizer: this.$store.state.user
             };
             
-            console.log("Event ", event);
+            EventService.postEvent(event)
+              .then(()=>{
+                // add vuex here 
+                console.table('event add', event)
+              })
+              .catch(err =>{
+                  console.error(err)
+              })
+            
         }
       }
     }

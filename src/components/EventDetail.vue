@@ -6,28 +6,18 @@
   </div>
 </template>
 <script>
-import EventService from '@/services/EventService'
 
 export default {
   name: 'EventDetail',
   props: ['id'],
-  data() {
-    return {
-      event: {
-        type: Object,
-        required: true,
-      },
-    }
-  },
   created() {
-    EventService.getEvent(this.id)
-      .then((response) => {
-        this.event = response.data
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+    this.$store.dispatch('fetchEvent', this.id)
   },
+  computed:{
+    event(){
+      return this.$store.state.event;
+    }
+  }
 }
 </script>
 <style scoped>
